@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>8-BALL</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Libre+Franklin" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+        <link href="Styling.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+
+
+    </head>
+    <body>
+        
+
+        <div id="container">
+
+            <h1> Ask the 8-Ball </h1>
+            <div class="item">
+                <img src="8ball.png" id ="click" onmouseover="animateCSS('#click', 'shake')" onclick="myFunction()" alt=""/>
+            </div>
+            <div class="item">
+                <input type="text" id="userInput">
+               
+            </div>
+            
+             <div id="question"></div> 
+
+        </div>
+
+        <script>
+            var question = document.getElementById("userInput").value;
+
+            document.getElementById("userInput")
+                    .addEventListener("keyup", function (event) {
+                        event.preventDefault();
+                        if (event.keyCode === 13) {
+                            document.getElementById("click").click();
+                            animateCSS('#click', 'shake');
+                            document.getElementById("userInput").value = "";
+                        }
+                    });
+
+            function animateCSS(element, animationName, callback) {
+                const node = document.querySelector(element);
+                node.classList.add('animated', animationName);
+
+                function handleAnimationEnd() {
+                    node.classList.remove('animated', animationName);
+                    node.removeEventListener('animationend', handleAnimationEnd);
+
+                    if (typeof callback === 'function')
+                        callback();
+                }
+
+                node.addEventListener('animationend', handleAnimationEnd);
+            }
+
+            function myFunction() {
+                animateCSS('#click', 'shake');
+
+                var input = document.getElementById("userInput").value;
+                if (input === "") {
+                    alert("You must ask a question");
+                    return;
+                }
+
+                let params = encodeURIComponent(input);
+                let uri = 'https://8ball.delegator.com/magic/JSON/' + params;
+
+                var answer;
+                fetch(uri)
+                        .then((response) => {
+                            return response.json();
+                        })
+                        .then((json) => {
+                            console.log(json);
+                            console.log(json.magic.answer);
+                            answer = json.magic.answer;
+                            document.getElementById("question").innerHTML = answer;
+                        });
+                        
+                        document.getElementById("userInput").value = "";
+                        document.getElementById("userInput").focus();
+            }
+
+
+
+
+        </script>
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,72 @@
+body {
+    background-color: rosybrown;
+    text-align: center;
+    font-family: 'Libre Franklin', sans-serif;
+
+
+}
+h1 {  
+    height:40px;
+    color: white;
+    font-size: 55px;
+    font-family: 'Cinzel', serif;
+    margin-top:15px;
+}
+
+img:hover {
+    cursor: pointer;
+
+}
+
+#question {
+    margin:auto;
+    padding: 10px;
+    clear:both;
+    font-size: 25px;
+
+}
+
+#userInput {
+    width:110%;
+    height:40px;
+    font-size: 20px;
+    float:left;
+
+}
+
+
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+
+
+}
+.item {
+
+}
+
+/* ------------ Desktop Only Styles --------------- */
+@media (max-width: 900px) {
+    img {
+        width:80%;
+    }
+
+
+    #userInput {
+        width:100%;
+    }
+
+    #container {
+        position: absolute;
+        height:100%;
+    }
+
+    h1 {  
+        font-size: 45px;
+    }
+
+
+}
